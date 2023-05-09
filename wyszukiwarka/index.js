@@ -163,21 +163,7 @@ var popupoperate = () => {
         })
 }
 
-
-var openchat = () => {
-    document.querySelector('.chat-main-status').addEventListener('click', () => {
-        document.querySelector('.chat-main').classList.toggle('chat-main-hidden')
-        document.querySelector('.chat-display').classList.toggle('chat-display-hidden')
-    })
-}
-
-
 popupgenerate();
-openchat();
-
-
-
-
 
 // async function data(){
 //     const response = await fetch('https://webwizards.home.pl/jacek/jjit/')
