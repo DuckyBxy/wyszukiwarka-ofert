@@ -303,7 +303,6 @@ body {
     border-radius: 16px;
     margin-left: auto;
     margin-right: 5px;
-    margin-bottom: 10px;
     margin-top: 10px;
 }
 
@@ -372,4 +371,37 @@ body {
     background-repeat: no-repeat;
     background-image: url(triangle.svg);
     filter: invert(9%) sepia(69%) saturate(7013%) hue-rotate(318deg) brightness(121%) contrast(112%);
+}
+
+.chat-reaction {
+    display: flex;
+    flex-direction: reverse row;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: fit-content;
+    width: fit-content;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.chat-reaction-show {
+    display: none;
+}
+
+.reaction-add {
+    width: 14px;
+    height: 14px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E8007D;
+    color: #E8007D;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.emoji {
+    cursor: pointer;
 }
