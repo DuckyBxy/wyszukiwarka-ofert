@@ -9,67 +9,77 @@ var openchat = () => {
 
 }
 
-var localuser=prompt('podaj nazwe uzytkownika');
-
 var create_channel = () => {
     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
 
         token:'dupaa',
         create:'kanal',
 
+    }).then(setInterval(function () {
+        axios.post('https://webwizards.home.pl/jacek/chat-api/', {
+            channel:'kanal',
+            all: true,
+            token:'dupaa'
+    }).then(function(response) {
+        render_message(response)
     })
+    }, 1000))
 }
 
-var render_message = (response, i) =>{
-        let data = response.data.data[i]
-            if(data.user == localuser){
-                return `
-                    <div class="message-sent">
-                        ${data.message}
-                    </div>
-                `}
-            else {
-                return `
-                <div class="message-recieved">
-
-                        <div class="name">
-                            ${data.user}
-                        </div>
-
-                        <div class="message">
-                            ${data.message}
-                        </div>
-                        
-                    </div>`
-            }
+var render_messages = (messages) => {
+    const msgparent = document.querySelector('.chat-content')
+    msgparent.innerHTML += messages
 }
 
-var render_messages = (response, leng) =>{
-    const msgparent = document.querySelector('.chat-content');
-    msgparent.innerHTML = '';
-    for(let i=0;i<leng;i++){
-    msgparent.innerHTML += render_message(response, i);
+var i = 0
+
+var render_message = (response) => {
+
+    var data = response.data.data[i]
+    i = i+1
+
+    if(data.user == 'awd'){
+    return `
+        <div class="message-sent">
+            ${data.message}
+        </div>
+    `
+    }
+    else {
+        return `<div class="message-recieved">
+
+                <div class="name">
+                    ${data.user}
+                </div>
+
+                <div class="message">
+                    ${data.message}
+                </div>
+                
+            </div>
+            `
     }
 }
 
-setInterval(function() {
-    axios.post('https://webwizards.home.pl/jacek/chat-api/', {
-        all:true,
-        channel:'kanal',
-        token:'dupaa'
-    }).then(function(response) {
-        var leng = response.data.data.length
-        render_messages(response, leng)
-    })
-}, 1000)
+
 
 var message_send = (msg) => {
+
     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
+
         channel:'kanal',
-        token:'dupaa',
         message:msg,
-        user:localuser
+        user:localuser,
+        token:'dupaa'
+
+    }).then(function(response) {
+        
+        console.log(response);
+
+        render_messages(render_message(response))
+
     })
+
 }
 
 var get_chat = () => {
@@ -93,7 +103,15 @@ var get_chat = () => {
     })
 }
 
-
+// setInterval(function () {
+//     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
+//         channel:'kanal',
+//         all: true,
+//         token:'dupaa'
+// }).then(function(response) {
+//     console.log(response);
+// })
+// }, 1000)
 
 openchat();
 get_chat();
