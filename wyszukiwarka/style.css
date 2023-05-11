@@ -297,7 +297,7 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    max-width: 80%;
+    max-width: fit-content;
     word-wrap: break-word;
     padding: 5px;
     border-radius: 16px;
@@ -305,6 +305,14 @@ body {
     margin-right: 5px;
     margin-top: 10px;
 }
+
+
+.message-out {
+    width: fit-content;
+    height: fit-content;
+    word-wrap: break-word;    
+}
+
 
 .message-recieved {
     font-family: 'Poppins';
@@ -374,34 +382,70 @@ body {
 }
 
 .chat-reaction {
-    display: flex;
+    display: none;
     flex-direction: reverse row;
     background: #FFFFFF;
-    border: 1px solid #D9D9D9;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     height: fit-content;
     width: fit-content;
     align-items: center;
     text-align: center;
-    display: flex;
 }
 
 .chat-reaction-show {
-    display: none;
+    display: flex;
 }
 
 .reaction-add {
-    width: 14px;
-    height: 14px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
     border-radius: 10px;
     background: #FFFFFF;
     border: 1px solid #E8007D;
     color: #E8007D;
-    padding-bottom: 10px;
     cursor: pointer;
 }
 
-.emoji {
+.reaction {
+    position: sticky;
+    margin-top: -2.5%;
+    border-radius: 16px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+}
+
+.reaction-sent {
+    position: sticky;
+    margin-top: -2.5%;
+    margin-left: auto;
+    border-radius: 16px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #D9D9D9;
+    background-color: #fff;
+}
+
+.reaction-add-sent {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    margin-left: auto;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E8007D;
+    color: #E8007D;
     cursor: pointer;
+}
+
+.reaction:empty {
+    display: none;
 }
