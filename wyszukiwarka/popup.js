@@ -33,13 +33,18 @@ var popuprender = (popup) => {
                     ${popup.skills.map(e => '<li>'+e.name+'</li>').join('')}
                     </ul>
                 </span>
+                <div class="popup-share-link">
+                    Udostępnij na chacie
+                </div>
             </div>
-        <span class="popup-link">
-            WWW:
-                <a target="_blank" href="${popup.company_url}">
+        <div class="popup-link">
+            <div class="link-padding">
+            WWW:<a target="_blank" href="${popup.company_url}">
                     ${popup.company_url}
                 </a>
-        </span>
+            <div>
+        </div>
+
     </div>
 `
 }
@@ -58,8 +63,48 @@ var popupgenerate = async () => {
         popparent.innerHTML = popuprender(popup);
 
         popupoperate();
+
+        document.querySelector('.popup-share-link').addEventListener('click', () => {
+
+            document.querySelector('.chat-main').classList.toggle('chat-main-hidden')
+            document.querySelector('.chat-display').classList.toggle('chat-display-hidden')
+
+            
+            axios.post('https://webwizards.home.pl/jacek/chat-api/', {
+                user:localuser,
+                message: `
+
+                <div class="share">
+                    <div class="share-header">
+                        <div class="share-companyname">${popup.company_name}</div>
+                        <div class="share-img"><img src="${popup.company_logo_url}"></div>
+                    </div>
+
+                    <div class="share-title">${popup.title}</div>
+
+                    <div class="share-pay">
+                    ${popup.employment_types.map( e => e.salary ? ' od '+e.salary.from+' do '+e.salary.to+' '+e.salary.currency+'<br>' : 'Brak widełek<br>').join('') }
+                    </div>
+
+                    <div class="share-skills">
+                    ${popup.skills.map(e => '<span class="share-skill">'+e.name+'</span>').join('')}
+                    </div>
+
+                <div class="share-link">
+                    WWW:<a target="_blank" href="${popup.company_url}">${popup.company_url}</a>
+                    </div>
+                </div>
+
+                `,
+                channel:'kanal',
+                token:'dupaa'
+            })
+
+        })
 })
+
 }
+
   
 var popupoperate = () => {
 

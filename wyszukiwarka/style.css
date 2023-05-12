@@ -107,7 +107,7 @@ body {
     background-color: #8E8E8E;
     color: #3F3F3F;
     border-radius: 16px;
-    margin-left: 8px;
+    margin-right: 8px;
     padding: .3rem;
 }
 
@@ -201,9 +201,10 @@ body {
 }
 
 .popup-link {
-    position: relative;
-    top: 20%;
+    margin-top: 14vh;
     color: white;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .popup a {
@@ -215,6 +216,80 @@ body {
     color: #8E8E8E;
 }
 
+.popup-share-link {
+    background: #E8007D;
+    border-radius: 16px;
+    color: #fff;
+    max-width: fit-content;
+    height: fit-content;
+    max-height: fit-content;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 45%;
+    margin-left: 30%;
+}
+
+.link-padding {
+    margin-right: auto;
+}
+
+.share {
+    display: flex;
+    flex-direction: column;
+    max-width: 14vw;
+}
+
+.share-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.share-companyname {
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 10px;
+    width: 60%;
+}
+
+
+.share-pay {
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.share-skills {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.share-skill {
+    font-size: 14px;
+    background-color: #8E8E8E;
+    color: #fff;
+    border-radius: 16px;
+    margin-right: 8px;
+    padding: .3rem;
+    height: fit-content;
+    text-align: center;
+}
+
+.share-link {
+    font-size: 14px;
+}
+
+.share a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.share a:visited {
+    color: #ffffff;
+    font-weight: bold;
+}
 
 .chat-main {
     position: fixed;
@@ -275,6 +350,7 @@ body {
     overflow-y: scroll;
     display: flex;
     flex-direction:column;
+    overflow-x: hidden;
 }
 
 .chat-content::-webkit-scrollbar {
@@ -305,14 +381,6 @@ body {
     margin-right: 5px;
     margin-top: 10px;
 }
-
-
-.message-out {
-    width: fit-content;
-    height: fit-content;
-    word-wrap: break-word;    
-}
-
 
 .message-recieved {
     font-family: 'Poppins';
@@ -384,7 +452,7 @@ body {
 .chat-reaction {
     display: none;
     flex-direction: reverse row;
-    background: #FFFFFF;
+    font-size: 14px;
     border-radius: 10px;
     height: fit-content;
     width: fit-content;
@@ -400,12 +468,29 @@ body {
     display: flex;
     flex-direction: row;
     width: fit-content;
-    height: fit-content;
+    height: 14px;
     border-radius: 10px;
     background: #FFFFFF;
     border: 1px solid #E8007D;
     color: #E8007D;
     cursor: pointer;
+    align-items: center;
+    text-align: center;
+}
+
+.reaction-add-sent {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: 14px;
+    border-radius: 10px;
+    background: #FFFFFF;
+    border: 1px solid #E8007D;
+    color: #E8007D;
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
 }
 
 .reaction {
@@ -414,10 +499,11 @@ body {
     border-radius: 16px;
     width: fit-content;
     height: fit-content;
-    font-size: 10px;
+    font-size: 12px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border: 1px solid #D9D9D9;
-    background-color: #fff;
+    padding-left: 1px;
+    padding-right: 1px;
 }
 
 .reaction-sent {
@@ -433,19 +519,10 @@ body {
     background-color: #fff;
 }
 
-.reaction-add-sent {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    height: fit-content;
-    margin-left: auto;
-    border-radius: 10px;
-    background: #FFFFFF;
-    border: 1px solid #E8007D;
-    color: #E8007D;
-    cursor: pointer;
-}
-
 .reaction:empty {
     display: none;
+}
+
+.emoji {
+    font-size: 10px;
 }

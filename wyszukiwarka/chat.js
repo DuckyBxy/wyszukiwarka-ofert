@@ -24,58 +24,55 @@ var render_message = (response, i) =>{
         let data = response.data.data[i];
             if(data.user == localuser){
                 return `
-                <div class="message=out">
                     <div class="message-sent" >
                                 ${data.message}
+                   </div>
+                   <div class="reaction-sent">${data.reactions.map(e => '<span>'+e+'</span>').join('')}</div>
+                   <div class="reaction-add-sent">
+                       <div class="chat-reaction">
+                           <div class="emoji" id=${data.message_id}>🥶</div>
+                           <div class="emoji" id=${data.message_id}>💀</div>
+                           <div class="emoji" id=${data.message_id}>❤️</div> 
+                       </div>
+                    +
+                   </div>
+               </div>
+                `
+            }
+                return `
+                <div class="message-recieved">
+                    <div class="name">
+                        ${data.user}
                     </div>
-                    <div class="reaction-sent">${data.reactions.map(e => '<span>'+e+'</span>').join('')}</div>
-                        <div class="reaction-add-sent">
-                        +
-                            <div class="chat-reaction">
-                                <div class="emoji" id=${data.message_id}>🥶</div>
-                                <div class="emoji" id=${data.message_id}>💀</div>
-                                <div class="emoji" id=${data.message_id}>❤️</div> 
-                            </div>
+                    <div class="message">
+                        ${data.message}
+                    </div>
+                    <div class="reaction">${data.reactions}</div>
+                    <div class="reaction-add">
+                    +
+                        <div class="chat-reaction">
+                            <div class="emoji" id=${data.message_id}>🥶</div>
+                            <div class="emoji" id=${data.message_id}>💀</div>
+                            <div class="emoji" id=${data.message_id}>❤️</div> 
                         </div>
                     </div>
                 </div>
-                `}
-            else {
-                return `
-                <div class="message-recieved" >
-
-                        <div class="name">
-                            ${data.user}
-                        </div>
-
-                        <div class="message">
-                            ${data.message}
-                        </div>
-                        <div class="reaction">${data.reactions.map(e => '<span>'+e+'</span>').join('')}</div>
-
-                        <div class="reaction-add">
-                        +
-                        <div class="chat-reaction">
-                        <div class="emoji" id=${data.message_id}>🥶</div>
-                        <div class="emoji" id=${data.message_id}>💀</div>
-                        <div class="emoji" id=${data.message_id}>❤️</div> 
-                        </div>
-                        </div>
-                </div>`
-            }
+                ` 
 }
 
 var show_reactions = () => {
     document.querySelectorAll('.reaction-add').forEach(occurence => {
         occurence.addEventListener('click', (e) => {
             e.target.querySelector('.chat-reaction').setAttribute('class', 'chat-reaction-show')
+            clearInterval(interval())
             })
         })
-    document.querySelectorAll('.reaction-add-sent').forEach(occurence => {
-        occurence.addEventListener('click', (e) => {
-            e.target.querySelector('.chat-reaction').setAttribute('class', 'chat-reaction-show')
+        document.querySelectorAll('.reaction-add-sent').forEach(occurence => {
+            occurence.addEventListener('click', (e) => {
+                e.target.querySelector('.chat-reaction').setAttribute('class', 'chat-reaction-show')
+                clearInterval(interval())
+                })
             })
-        })
     }
 
 
@@ -90,7 +87,7 @@ var render_messages = (response, leng) =>{
 
 }
 
-setInterval(function() {
+var interval = () => {
     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
 
         all:true,
@@ -108,6 +105,7 @@ setInterval(function() {
 
                     var reaction = e.target.textContent
                     var id = e.target.getAttribute("id")
+                    setTimeout(interval, 1000)
 
                     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
 
@@ -120,11 +118,31 @@ setInterval(function() {
                 })
         })
     }).then(function() {
-        show_reactions()
+        document.querySelectorAll('.reaction-add').forEach(occurence => {
+            occurence.addEventListener('click', (e) => {
+
+                clearInterval(intervalID);
+                setTimeout(interval, 10000);
+
+                e.target.querySelector('.chat-reaction').classList.toggle('chat-reaction-show')
+
+                })
+            })
+            document.querySelectorAll('.reaction-add-sent').forEach(occurence => {
+                occurence.addEventListener('click', (e) => {
+
+                    clearInterval(intervalID);
+                    setTimeout(interval, 10000);
+
+                    e.target.querySelector('.chat-reaction').classList.toggle('chat-reaction-show')
+
+                    })
+                })
     })
-}, 1000)
+}
 
 var message_send = (msg) => {
+    setTimeout(interval, 1000)
     axios.post('https://webwizards.home.pl/jacek/chat-api/', {
         channel:'kanal',
         token:'dupaa',
@@ -142,6 +160,7 @@ var get_chat = () => {
         var msg = document.querySelector('.chat-message').value;
         document.querySelector('.chat-message').value = "";
         message_send(msg);
+        content.scrollTop = content.scrollHeight;
 
     })
     
@@ -155,8 +174,15 @@ var get_chat = () => {
     })
 }
 
+var intervalID
 
+var start = () => {
+    intervalID = setInterval(interval, 1000)
+}
 
 openchat();
 get_chat();
+start()
+
+
 // create_channel();
